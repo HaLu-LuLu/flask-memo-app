@@ -1,0 +1,738 @@
+/* -------- 基本スタイル -------- */
+:root {
+  --bg: #f6f7fb;
+  --text: #222;
+  --border: #e5e7eb;
+  --card-bg: #fff;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --shadow: 0 4px 10px rgba(0,0,0,0.08);
+  --radius: 12px;
+  --space: 16px;
+}
+
+body {
+  font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+  background: #f8f9fa;
+  color: #333;
+}
+
+/* -------- 共通コンテナ -------- */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* -------- ヘッダー -------- */
+.site-header {
+  background: #fff;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.site-header h1 {
+  margin: 0;
+  padding: 16px 0;
+}
+
+.site-header a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* -------- メモ一覧 -------- */
+.memo-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.memo-text {
+  flex: 1;
+  word-wrap: break-word;
+}
+
+/* -------- ボタン -------- */
+.btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+  box-shadow: var(--shadow);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary-hover);
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: #fff;
+  border-color: var(--danger);
+}
+
+.btn-danger:hover {
+  background: var(--danger-hover);
+}
+
+.btn.btn-primary {
+  background: #ff9de2;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: #ff7fd7;
+}
+
+/* -------- 入力フォーム -------- */
+.add-form {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space);
+  box-shadow: var(--shadow);
+  max-width: 520px;
+}
+
+.add-form input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  min-width: 260px;
+}
+
+.add-form button[type="submit"] {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.add-form button[type="submit"]:hover {
+  background: var(--primary-hover);
+}
+
+.add-memo-form {
+  margin-top: 18px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: #fff0fa;
+  border: 1px splid #ffd6f2;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.add-memo-form input[name="memo"]:focus {
+  outline: none;
+  border-color: #ff8fcb;
+  box-shadow: 0 0 0 2px rgba(255, 143, 203, 0.3);
+}
+
+/* -------- 空メッセージ -------- */
+.empty {
+  text-align: center;
+  color: #666;
+  padding: var(--space);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+}
+
+/* -------- 画面中央寄せと余白の調整 -------- */
+.main-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* -------- メモ一覧のレイアウト整え -------- */
+.memo-list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+}
+
+.memo-text {
+  flex: 1;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #444;
+}
+
+/* -------- メモ一覧全体のカード感 -------- */
+.memo-list li {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  margin-bottom: 12px;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* -------- ページタイトルの調整 -------- */
+.page-title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* -------- 編集ボタン -------- */
+.edit_link {
+  border: 1px solid #b197fc;
+  color: #5f3dc4;
+  text-decoration: none;
+}
+
+.edit_link:hover {
+  background: #f3f0ff;
+}
+
+/* 編集画面 */
+.edit-card {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 24px;
+  border-radius: 16px;
+  background: #fdecef;
+}
+
+.edit-title {
+  margin-bottom: 12px;
+  text-align: center;
+  font-size: 1rem;
+  color: #c2255c;
+}
+
+.edit-form input[name="memo"] {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid #ffc9e9;
+  font-size: 0.9rem;
+}
+
+.edit-form input[name="memo"]:focus {
+  outline: none;
+  border-color: #ff8fcb;
+  box-shadow: 0 0 0 2px rgba(255, 143, 203, 0.3);
+}
+
+.edit-form input[type="text"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  border-radius: 999px;
+  border: 2px solid #f3b6cc;
+  font-size: 16px;
+}
+
+.edit-action {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+/* キャンセル */
+.edit-cancel {
+  font-size: 0.8rem;
+  color: #666;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.edit-cancel:hover {
+  background: #f1f3f5;
+}
+
+.edit-save {
+  transition: box-shadow 0.15s ease;
+}
+
+.edit-save:active {
+  animation: pop 0.45s cubic-bezier(.34,1.56,.64,1);
+  box-shadow: 
+    0 0 0 6px rgba(255, 240, 200, 0.35),
+    0 0 18px rgba(255, 230, 180, 0.45);
+}
+
+.edit-save:hover {
+  transform: scale(1.03);
+}
+
+.edited-highlight {
+  animation: editedGlow 1.4s ease-out;
+}
+
+.delete-btn,
+.edit_link,
+.btn.btn-primary {
+  border-radius: 999px;
+  font-size: 0.75rem;
+  padding: 4px 10px;
+}
+
+/* -------- 削除ボタン -------- */
+.delete-btn {
+  background: #ffd8e8; 
+  color: #444;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #ffc1dd;
+}
+
+/* -------- 追加フォーム -------- */
+form[action*="add_memo"] {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+input[name="memo"] {
+  flex: 1;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background-color: #f4f6fb;
+  color: #444;
+}
+
+button:hover {
+  background-color: #eef1f8;
+}
+
+button[type="submit"] {
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button[type="submit"]:hover {
+  background: #0056b3;
+}
+
+button, .btn {
+  border-radius: 999px;
+  transition: 
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    background-color 0.15s ease;
+}
+
+button:hover, btn:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+button:active, .btn:active {
+  transform: scale(0.96);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) inset;
+}
+
+/* 全体の余白と中央位置を整える */
+.main-container {
+  max-width: 840px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.serch-form {
+  margin-bottom: 16px;
+  display: flex;
+  gap: 8px;
+}
+
+.serch-form input {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  flex: 1;
+}
+
+.serch-box {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 10px 14px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  align-items: center;
+}
+
+.serch-box input[type="text"] {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.serch-box button {
+  background: var(--primary);
+  border: none;
+  color: white;
+  padding: 10px 14px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.serch-box button:hover {
+  background: var(--primary-hover);
+}
+
+.memo-item {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(6px);
+  border-radius: 16px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #ffe3f3;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+
+/* 完了したメモの見た目 */
+.memo-item.memo-done {
+  opacity: 0.55;
+  filter: grayscale(30%);
+  transform: scale(0.98);
+  font-size: 0.92em;
+}
+
+.memo-item.memo-done:hover {
+  opacity: 0.9;
+  filter: grayscale(0%);
+  transform: scale(1);
+}
+
+.memo-item.memo-done::after {
+  content: "✓";
+  font-size: 14px;
+  color: #ff9fcf;
+  margin-left: auto;
+  opacity: 0.8;
+}
+
+.memo-item.memo-done .memo-text {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(0, 0, 0, 0.25);
+  color: #888;
+}
+
+.memo-item.is-toggling{
+  animation: togglePop 0.45s ease-out;
+}
+
+.memo-item.is-untoggling {
+  animation: toggleBack 0.45s ease-out;
+}
+
+.memo-item.memo-done .memo-tag-badge {
+  opacity: 0.4;
+  filter: grayscale(60%);
+  transform: scale(0.95);
+}
+
+/* 完了ボタン */
+.done-btn {
+  background: #16a34a;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin-right: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.done-btn:hover {
+  background: #15803d;
+}
+
+/* タグバッジ共通 */
+.tag-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #fff;
+  margin-right: 8px;
+}
+
+/* タグごとの色 */
+.tag-重要 { background: #e11d48; }
+.tag-仕事 { background: #0ea5e9; }
+.tag-買い物 { background: #10b981; }
+.tag-急ぎ { background: #f59e0b; }
+
+/* 本物のラジオボタンは非表示に */
+.tag-input {
+  display: none;
+}
+
+/* タグボタンの共通スタイル */
+.tag-select-group {
+  margin: 8px 0 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.tag-select-label {
+  margin-right: 4px;
+  font-size: 0.9rem;
+}
+
+.tag-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  font-size: 0.85rem;
+  user-select: none;
+  transition: background-color 0.15s, border-color 0.15s, transform 0.1s, box-shadow 0.1s;
+}
+
+/* 小さな丸アイコン */
+.tag-icon {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background-color: #ccc;
+}
+
+/* タグごとの色（丸アイコン） */
+.tag-none .tag-icon {
+  background-color: #adb5bd;
+}
+
+.tag-important .tag-icon {
+  background-color: #ff6b6b;
+}
+
+.tag-works .tag-icon {
+  background-color: #4dabf7;;
+}
+
+.tag-shopping .tag-icon {
+  background-color: #51cf66;
+}
+
+.tag-urgent .tag-icon {
+  background-color: #fcc419;
+}
+
+.tag-low .tag-icon {
+  background-color: #868e96;
+}
+
+/* 選択されているときの見た目 */
+.tag-iput:checked + .tag-option {
+  border-color: #333;
+  background-color: #f1f3f5;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
+}
+
+/* ホバー時 */
+.tag-option:hover {
+  background-color: #f8f9fa;
+}
+
+/* タグフィルター（丸タグ） */
+.tag-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 14px;
+  margin-bottom: 18px;
+}
+
+.tag-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid #ffd6f2;
+  background: #fff0fa;
+  color: #444;
+  text-decoration: none;
+  font-size: 0.85rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: transform 0.08s ease-out, box-shadow 0.08s ease-out;
+  opacity: 0.85;
+}
+
+.tag-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.tag-btn.active {
+  background-color: #ff8fcb;
+  background: #ffe3f3;
+  font-weight: 600;
+  box-shadow: 0 0 0 2px rgba(255, 143, 203, 0.35);
+  opacity: 1;
+}
+
+/* 左の小さい丸 */
+.tag-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #adb5bd;
+}
+
+/* タグごとの丸色（タグバッジと同じ配色） */
+.tag-btn.tag-important .tag-dot {background: #ff6b6b;}
+.tag-btn.tag-urgent .tag-dot    {background: #fcc419;}
+.tag-btn.tag-low .tag-dot       {background: #868e96;}
+.tag-btn.tag-shopping .tag-dot  {background: #51cf66;}
+
+/* すべてはピンク寄りでかわいく */
+.tag-btn.tag-all .tag-dot       {background: #ff8fcb;}
+
+.memo-tag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  margin-left: 4px;
+  background-color: #ffe8f2;
+}
+
+/* それぞれの背景を変える */
+.memo-tag-badge.tag-important {
+  background-color: #ffe3e3;
+}
+
+.memo-tag-badge.tag-urgent {
+  background-color: #fff7d1;
+}
+
+.memo-tag-badge.tag-low {
+  background-color: #f1f3f5;
+}
+
+.memo-tag-badge.tag-work {
+  background-color: #e7f2ff;
+}
+
+.memo-tag-badge.tag-shopping {
+  background-color: #e6ffed;
+}
+
+@keyframes pop {
+  0%   { transform: scale(0.85);}
+  60%  { transform: scale(1.15);}
+  100% { transform: scale(1);}
+}
+
+@keyframes editedGlow {
+  0% {
+    background-color: rgba(255, 240, 200, 0.9);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes toastPop {
+  from { transform: translateY(-6px); opacity: 0;}
+  to   { transform: translateY(0); opacity: 1;}
+}
+
+@keyframes fadeout {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes togglePop {
+  from { transform: translateY(0); opacity: 1; }
+  to   { transform: translateY(12px); opacity: 0.75;}
+}
+
+@keyframes toggleBack {
+  from { transform: translateY(6px); opacity: 0.6; scale: 0.98; }
+  to   { transform: translateY(0); opacity: 1; scale: 1; }
+}
+
+.toast {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 9999;
+
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 14px;
+
+  background: rgba(255, 192, 203, 0.28);
+  border: 1px solid rgba(255, 105, 180, 0.35);
+  color: #b03060;
+  font-weight: 700;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+
+  animation:
+    toastPop 0.25s ease-out, feadeout 0.5s ease forwards;
+  animation-delay: 0s 2s;
+}

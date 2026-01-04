@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block title %}メモ一覧 | Flaskメモアプリ {% endblock %}
+
+{% block content %}
+  <h3>保存されているメモ一覧</h3>
+  {% if msg %}
+    <div class="toast">
+      {% if msg == "added" %}追加しました✨{% endif %}
+      {% if msg == "saved" %}保存しました✨{% endif %}
+      {% if msg == "toggled" %}更新しました✨{% endif %}
+    </div>
+
+    <script>
+      setTimeout(() => {
+        const toast =document.querySelector('.toast');
+        if (toast) toast.remove();
+      }, 2500);
+    </script>
+  {% endif %}
+
+  <!-- 検索＆完了を隠す -->
+  <form action="/" method="get" class="serch-box">
+      <input type="text" name="q" placeholder="キーワードを入力…" value="{{ serch_query }}">
+      <button type="submit">🔍</button>
+
+      <label class="hide-done-label">
+        <input type="checkbox" name="hide_done" value="1"
+            {% if hide_done == "1" %}checked{% endif %}>
+      </label>
+  </form>
+
+  <!-- タグフィルター -->
+  <div class="tag-filters">
+    <a href="{{ url_for('index', q=serch_query, hide_done=hide_done) }}" class="tag-btn tag-all {% if not selected_tag %}active{% endif %}">
+      <span class="tag-dot"></span>
+      <span class="tag-label">すべて</span>
+    </a>
+    <a href="{{ url_for('index', tag='重要', q=serch_query, hide_done=hide_done) }}" class="tag-btn tag-important {% if selected_tag == '重要' %}active{% endif %}">
+      <span class="tag-dot"></span>
+      <span class="tag-label">重要</span>
+    </a>
+    <a href="{{ url_for('index', tag='仕事', q=serch_query, hide_done=hide_done) }}" class="tag-btn tag-work {% if selected_tag == '仕事' %}active{% endif %}">
+      <span class="tag-dot"></span>
+      <span class="tag-label">仕事</span>
+    </a>
+    <a href="{{ url_for('index', tag='買い物', q=serch_query, hide_done=hide_done) }}" class="tag-btn tag-shopping {% if selected_tag == '買い物' %}active{% endif %}">
+      <span class="tag-dot"></span>
+      <span class="tag-label">買い物</span>
+    </a>
+    <a href="{{ url_for('index', tag='急ぎ', q=serch_query, hide_done=hide_done) }}" class="tag-btn tag-urgent {% if selected_tag == '急ぎ' %}active{% endif %}">
+      <span class="tag-dot"></span>
+      <span class="tag-label">急ぎ</span>
+    </a>
+  </div>
+
+  <!-- メモ一覧 -->
+  <ul class="memo-list">
+    {% if memos %}
+      {% for idx, memo in memos %}
+        {% set is_done = "[完了]" in memo %}
+        {% set tags = [] %}
+        {% if "重要" in memo %}{% set _ = tags.append(("重要","tag-important")) %}{% endif %}
+        {% if "仕事" in memo %}{% set _ = tags.append(("仕事","tag-work")) %}{% endif %}
+        {% if "買い物" in memo %}{% set _ = tags.append(("買い物","tag-shopping")) %}{% endif %}
+        {% if "急ぎ" in memo %}{% set _ = tags.append(("緊急","tag-urgent")) %}{% endif %}
+        {% if "低" in memo %}{% set _ = tags.append(("低","tag-low")) %}{% endif %}
+
+        <li class="memo-item 
+            {% if is_done %}memo-done{% endif %}
+            {% if msg == 'toggled' and edited == idx %}is-toggling{% endif %}
+            {% if msg == 'untoggled' and edited == idx %}is-untoggling{% endif %}">
+
+          <!-- 本文完了だけ消す -->
+          <span class="memo-text">
+            {{ memo | replace("[完了]", "") | trim | e }}
+          </span>
+          
+          {% for t, cls in tags %}
+            <span class="memo-tag-badge {{ cls }}">
+              <span class="tag-icon"></span>
+              <span class="tag-text">{{ t }}</span>
+            </span>
+          {% endfor %}
+
+          <!-- 完了ボタン -->
+          <form action="{{ url_for('toggle_done', index=idx) }}" 
+                method="post" style="display:inline;" class="toggle-form">
+            <button type="submit" class="delete_btn">
+              {% if is_done %}戻す{% else %}完了{% endif %}
+            </button>
+          </form>
+
+          <!-- 既存の編集／削除ボタン -->
+          <a href="{{ url_for('edit_memo', index=idx) }}" class="btn btn-outline edit-link">編集</a>
+
+          <form action="{{ url_for('delete_memo', index=idx) }}" method="post" style="display: inline;">
+            <button type="submit" class="delete_btn">削除</button>
+          </form>
+        </li>
+      {% endfor %}
+    {% else %}
+      <li class="empty">📝 まだメモがありません。最初のメモを追加してみましょう！</li>
+    {% endif %}
+  </ul>
+
+  <!-- メモ追加フォーム -->
+  <form action="{{ url_for('add_memo') }}" method="post" class="add-memo-form">
+    <input type="text" name="memo" placeholder="新しいメモを入力" required>
+
+    <!-- タグ選択UI -->
+    <div class="tag-select-group">
+      <span class="tag-select-label">タグ：</span>
+
+      <!-- タグなし -->
+      <input type="radio" name="tag" id="tag-none" value="" class="tag-input" checked>
+      <label for="tag-none" class="tag-option tag-none">
+        <span class="tag-icon"></span>
+        <span class="tag-text">なし</span>
+      </label>
+
+      <!-- 重要 -->
+      <input type="radio" name="tag" id="tag-important" value="重要" class="tag-input">
+      <label for="tag-important" class="tag-option tag-important">
+        <span class="tag-icon"></span>
+        <span class="tag-text">重要</span>
+      </label>
+
+      <!-- 仕事 -->
+      <input type="radio" name="tag" id="tag-work" value="仕事" class="tag-input">
+      <label for="tag-work" class="tag-option tag-work">
+        <span class="tag-icon"></span>
+        <span class="tag-text">仕事</span>
+      </label>
+
+      <!-- 買い物 -->
+      <input type="radio" name="tag" id="tag-shopping" value="買い物" class="tag-input">
+      <label for="tag-shopping" class="tag-option tag-shopping">
+        <span class="tag-icon"></span>
+        <span class="tag-text">買い物</span>
+      </label>
+
+      <!-- 急ぎ -->
+      <input type="radio" name="tag" id="tag-urgent" value="急ぎ" class="tag-input">
+      <label for="tag-urgent" class="tag-option tag-urgent">
+        <span class="tag-icon"></span>
+        <span class="tag-text">急ぎ</span>
+      </label>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">追加</button>
+  </form>
+  
+{% endblock %}

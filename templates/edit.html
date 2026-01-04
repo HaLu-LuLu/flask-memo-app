@@ -1,0 +1,53 @@
+{% extends "base.html "%}
+
+{% block title %}メモ編集 | Flaskメモアプリ {% endblock %}
+
+{% block content %}
+
+<div class="edit-card">
+  <h3 class="edit-title">メモを編集 ✏️</h3>
+
+  <form action="{{ url_for('edit_memo', index=index) }}" method="post" class="edit-form">
+    <input type="text" name="memo" value="{{ text }}" required>
+    
+    <div class="tag-select-group">
+      <span class="tag-select-label">タグ:</span>
+
+      <input type="radio" name="tag" id="edit-tag-none" value="" class="tag-input"
+        {% if not tag %}checked{% endif %}>
+      <label for="edit-tag-none" class="tag-option tag-none">
+        <span class="tag-icon"></span><span class="tag-text">なし</span>
+      </label>
+
+      <input type="radio" name="tag" id="edit-tag-important" value="重要" class="tag-input"
+        {% if tag == "重要" %}checked{% endif %}>
+      <label for="edit-tag-important" class="tag-option tag-important">
+        <span class="tag-icon"></span><span class="tag-text">重要</span>
+      </label>
+
+      <input type="radio" name="tag" id="edit-tag-work" value="仕事" class="tag-input"
+        {% if tag == "仕事" %}checked{% endif %}>
+      <label for="edit-tag-work" class="tag-option tag-work">
+        <span class="tag-icon"></span><span class="tag-text">仕事</span>
+      </label>
+
+      <input type="radio" name="tag" id="edit-tag-shopping" value="買い物" class="tag-input"
+        {% if tag == "買い物" %}checked{% endif %}>
+      <label for="edit-tag-shopping" class="tag-option tag-shopping">
+        <span class="tag-icon"></span><span class="tag-text">買い物</span>
+      </label>
+
+      <input type="radio" name="tag" id="edit-tag-urgent" value="急ぎ" class="tag-input"
+        {% if tag == "急ぎ" %}checked{% endif %}>
+      <label for="edit-tag-urgent" class="tag-option tag-urgent">
+        <span class="tag-icon"></span><span class="tag-text">急ぎ</span>
+      </label>
+    </div>
+
+    <div class="edit-actions">
+      <button type="submit" class="btn btn-primary edit-save">保存</button>
+      <a href="{{ url_for('index') }}" class="edit-cancel">キャンセル</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

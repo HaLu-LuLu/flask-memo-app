@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Flaskメモアプリ 📝{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+</head>
+<body>
+  <div class="main-container">
+    {%block content %}{% endblock %}
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll("form.toggle-form").forEach(form => {
+        form.addEventListener("submit", (e) => {
+          const li = form.closest(".memo-item");
+          if (!li) return;
+
+          e.preventDefault();
+          li.classList.add("is-toggling");
+
+          setTimeout(() => form.submit(), 450);
+      });
+    });
+  });
+  </script>
+</body>
+</html>
