@@ -32,3 +32,10 @@ Flaskで作成したシンプルなメモアプリです。
 - 状態管理（完了／未完了）の実装
 - UI／UXを意識したデザインとアニメーション
 - バグ修正・原因の切り分け
+
+## ▶ 起動方法
+'''bash
+pip install flask
+python app.py
+
+![アプリ画面](images/screenshot.png)
